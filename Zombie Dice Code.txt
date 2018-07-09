@@ -1,0 +1,458 @@
+
+dice=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]#This is an array that contains all thirteen dice
+
+r=0#This variable will randomly create a number, which will determine the die that is being used and also the color of the die     
+
+roll_1=0#If result for roll_1 is "Footprints", r will be stored in variable to make sure the same die is rolled in the next turn
+roll_2=0#If result for roll_2 is "Footprints", r will be stored in variable to make sure the same die is rolled in the next turn 
+roll_3=0#If result for roll_3 is "Footprints", r will be stored in variable to make sure the same die is rolled in the next turn   
+
+Continue="y"#This variable will determine if  the user would like to Continue their turn
+
+num=0#This variable is created to see who is the current player 
+
+brains=0#The number of brains the player got in the round will be gathered together in this variable 
+footprints=0#The number of footprints the player got in the round will be gathered together in this variable 
+shotguns=0#The number of shotguns the player got in the round will be gathered together in this variable 
+
+rolled=0#The player's turn continues to the point that three dice have been rolled and which the variable roll is responsible for  
+
+side_1=0#The result that is created for die 1 in each turn will be kept in the variable
+side_2=0#The result that is created for die 2 in each turn will be kept in the variable 
+side_3=0#The result that is created for die 3 in each turn will be kept in the variable  
+
+leftover=0#The number of dice that have been used and no longer can be used will be kept in this variable   
+
+Round=1#The current round is stored in this variable 
+
+zombie_1=0#The total brains needed in the game by zombie_1  
+zombie_2=0#The total brains needed in the game by zombie_2 
+
+points_1=0 #If zombie_1 gets thirteen or more brains it is stored in this variable
+points_2=0 #If zombie_2 gets thirteen or more brains it is stored in this variable
+
+
+print"\tWELCOME TO ZOMBIE DICE!... Eat as many brains as you can!"
+print" "
+print"            The first person to get 13 brains wins the game"
+print" "
+print"                 If you get 3 shotguns... YOU DIE!"
+print" "
+print"Kevin Singh, Yahan Raveendran, Kush Patel"
+print " "
+print "********************************************************************************"
+print "                                 ROUND", Round, ":\n********************************************************************************"
+while zombie_1!=13 and zombie_2!=13 or turn==turn2:  
+    if num==2:#To make sure the correct player plays amoungst the two players is referred to, once num has equaled 2, it once again makes the variable become 0 
+        num=0 
+        Round=Round+1
+        
+        print "********************************************************************************"
+        print "                                 ROUND", Round, ":\n********************************************************************************"
+
+    num=num+1
+
+    dice=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]#As the player has changed all dice are now usable 
+    leftover=0#As the new player's turn has begun, all dice can be used 
+    
+    brains=0#If the previous player does not want to Continue rolling the next player now has zero brains  
+    shotguns=0#If the previous player does not want to Continue rolling the next player now has zero shotguns  
+    footprints=0#If the previous player does not want to Continue rolling the next player now has zero footprints  
+
+    side_1=0#It make sures that the rolling of "Footprints"  in the previous turn does not have a change on the current player 
+    side_2=0
+    side_3=0
+
+    print " "
+    Continue=raw_input("Are you ready to munch on some BRAINS(y/n)!")
+
+    while Continue!="y":#This variable is to make sure if the player is prepared to continue with the game. 
+        Continue=raw_input("Are you ready to munch on some BRAINS(y/n)!")
+
+    print "\nROLLING...\n"
+
+    while Continue=="y" and shotguns<3:#While both of the conditions are met, the dice are rolled again for the player in the round 
+    
+        footprints=0#The purpose of this variable is to inform the player how many dice will be rerolled  
+    
+        if rolled==3:#When roll equals 3, it is changed to 0 so three dice are rolled for the following turn 
+            rolled=0
+        while rolled!=3:#Three dice must be rolled for this round 
+        
+            if leftover>12:#When the leftover dice are greater than 12 all dice are once again usable  
+                for r in range(12):#Each die is gone through and made available if they had not produced a "Shotgun" or do not equal 2 
+                    if dice[r]!=2:
+                        dice[r]=0
+                        leftover=leftover-1#When there is a die available, the number of unusable dice decreases by 1 
+            
+            if rolled==0 and side_1!="Walk":#A new die is created only when the previous one did not result in footprints 
+                import random
+                r=random.randrange(len(dice))
+
+            elif rolled==1 and side_2!="Walk":
+                import random
+                r=random.randrange(len(dice))
+            
+            elif rolled==2 and side_3!="Walk":
+                import random
+                r=random.randrange(len(dice))
+                
+            else:
+                if rolled==0 and side_1=="Walk":#roll is currently 0 
+                    r=roll_1#If the result for the first die equaled "Footprints", r will be the same from the previous round 
+                elif rolled==1 and side_2=="Walk":
+                    r=roll_2#If the result for the second die equaled "Footprints", r will be the same from the previous round 
+                elif rolled==2 and side_3=="Walk":
+                    r=roll_3#If the result for the third die equaled "Footprints", r will be the same from the previous round  
+
+            rolled=rolled+1#When a die has now been rolled, the number of rolled dice is updated
+        
+            while dice[r]==1 or dice[r]==2:#Until a usable die is created, t is generated randomly
+                r=random.randrange(len(dice))
+            
+            if dice[r]!=1 and dice[r]!=2:#Only when the die is usable, there will be a die being rolled  
+
+                import random 
+
+               
+               #6 dice are green, 4 dice are yellow and 3 dice are red, the colour is based on the code below 
+                if r<6:
+                    die="green die"
+                    column="Green Die:"
+                    green_die=random.randrange(6)+1
+                    if green_die==1 or green_die==2 or green_die==3: 
+                        brains=brains+1
+                        result="Brain"
+                    elif green_die==4 or green_die==5:
+                        footprints=footprints+1
+                        result="Walk"
+                    else:
+                        shotguns=shotguns+1
+                        result="Shotgun"
+
+                elif r>=6 and r<10:
+                    die="yellow die"
+                    column="Yellow Die:"
+                    yellow_die=random.randrange(6)+1
+                    if yellow_die==1 or yellow_die==2:
+                        brains=brains+1
+                        result="Brain"
+                    elif yellow_die==3 or yellow_die==4:
+                        footprints=footprints+1
+                        result="Walk"
+                    else:
+                        shotguns=shotguns+1
+                        result="Shotgun"
+
+                else:
+                    die="red die"
+                    column="Red Die:"
+                    red_die=random.randrange(6)+1
+                    if red_die>=1 or red_die<=3:
+                        shotguns=shotguns+1
+                        result="Shotgun"
+                    elif red_die==4 or red_die==5:
+                        footprints=footprints+1
+                        result="Walk"
+                    else:
+                        brains=brains+1
+                        result="Brain"
+
+                if rolled==1:#It is showed that the first die is being used   
+                    if result=="Walk":
+                        roll_1=r#The die will be rolled again, because r is stored in the variable which is seen again in the following rolling turn   
+                    elif result=="Shotgun":
+                        leftover=leftover+1
+                        dice[r]=2
+                    elif result!="Walk" and result!="Shotgun":
+                        leftover=leftover+1#The number of leftover dice has been increased 
+                        dice[r]=1 #The die not usuable
+                    #All the results of the die now belong to the first die
+                    if side_1=="Walk":
+                        die1=die1
+                        column1=column1
+                    else:
+                        die1=die 
+                        column1=column
+                    side_1=result
+
+                elif rolled==2:
+                    if result=="Walk":
+                        roll_2=r
+                    elif result=="Shotgun":
+                        leftover=leftover+1
+                        dice[r]=2
+                    elif result!="Walk" and result!="Shotgun":
+                        leftover=leftover+1
+                        dice[r]=1
+                     #All the results of the die now belong to the second die  
+                    if side_2=="Walk":
+                        die2=die2
+                        column2=column2
+                    else: 
+                        die2=die
+                        column2=column
+                    side_2=result
+
+                elif rolled==3:
+                    if result=="Walk":
+                        roll_3=r
+                    elif result=="Shotgun":
+                        leftover=leftover+1
+                        dice[r]=2
+                    elif result!="Walk" and result!="Shotgun":
+                        leftover=leftover+1
+                        dice[r]=1
+                    #All the results of the die now belong to the third die, unless a footprints had been rolled
+                    if side_3=="Walk":
+                        die3=die3
+                        column3=column3
+                    else:
+                        die3=die
+                        column3=column
+                    side_3=result
+    
+                   #When all the dice have been rolled, the player will be showed with all the results
+                    
+                    print "ZOMBIE", num, ":", "you have been presented with a", die1 + ", " + die2 , "and", die3 + "."
+                     
+                    print "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n                              DICE RESULTS\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n", column1, side_1, "\n" ,column2, side_2, "\n",column3,side_3, "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", brains, "\nSHOTGUNS:", shotguns, "\nFOOTPRINTS:", footprints, "\n~~~~~~~~~~~~~~~~~~~~~~"
+
+        if shotguns>=3:#The player recieved more than the maximum shotguns so the turn is finished  
+            brains=0#No brains, if the condition is met, have been collected in this turn 
+            
+            print "\nTURN OVER---YOU HAVE BEEN SHOT 3 OR MORE TIMES---"
+            
+        else:
+            
+            Continue=raw_input("\nWould you like to roll again (y/n)?") 
+            if Continue=="y":
+                print "\nROLLING...\n"
+
+    if num==1:#The following results relate to zombie_1
+        zombie_1=zombie_1+brains#All brains that is gathered in the round are added to the current total amount for zombie_1
+        
+        print "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", zombie_1, "\n~~~~~~~~~~~~~~~~~~~~~~\n"
+        if zombie_1>=13:   
+            points_1=zombie_1#The total number of brains are stored in this variable  
+            zombie_1=13#To make the code easier, even if more than thirteen brains are aquired, they are converted to thirteen 
+    else:#The following results relate to zombie_1 
+        zombie_2=zombie_2+brains#All brains that is gathered in the round are added to the current total amount for zombie_2 
+        
+        print "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", zombie_2, "\n~~~~~~~~~~~~~~~~~~~~~~\n"    
+        if zombie_2>=13:
+            points_2=zombie_2
+            zombie_2=13
+    
+    if zombie_1>13 or zombie_1==13 and turn==1 and turn2==0:#This make sures that zombie_2 will have a turn after zombie_1 has earned 13 or more dice 
+        turn=turn2
+    else:
+        turn=1
+        turn2=0       
+
+
+#The GAME has been completed
+
+
+if points_2==0 or points_1>points_2:#If points_2 is 0, player 1 has more than 13 brains and player 2 has less than 13 brains
+    
+    print "\nGAME OVER: ZOMBIE 1 has ATE 13 or more BRAINS!"
+elif points_1==0 or points_2>points_1:#If points_1 is 0, player 2 has more than 13 brains and player 1 has less than 13 brains 
+    
+    print "\nGAME OVER: ZOMBIE 2 has ATE 13 or more BRAINS!"
+else:
+    zombie_1=0
+    zombie_2=0
+    
+
+    turn=0
+    turn2=0
+    
+    
+    print "*****************************************************************************\n  TIEBREAKER :\n*****************************************************************************"
+    while zombie_1==zombie_2 or turn!=turn2:
+        if num==2: 
+            num=0 
+        num=num+1
+        if num==1:
+            turn=turn+1
+        elif num==2:
+            turn2=turn2+1
+        
+        dice=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
+        leftover=0 
+    
+        brains=0 
+        shotguns=0 
+        footprints=0
+
+        
+        Continue=raw_input("Are you ready to crush some BRAINS(y/n)!")
+
+        while Continue!="y": 
+            Continue=raw_input("Are you ready to crush some BRAINS(y/n)!")
+
+        print "\nROLLING...\n"
+
+        while Continue=="y" and shotguns<3: 
+    
+            footprints=0 
+    
+            if rolled==3: 
+                rolled=0
+            while rolled!=3: 
+        
+                if leftover>12: 
+                    for r in range(12): 
+                        if dice[r]!=2:
+                            dice[r]=0
+                            leftover=leftover-1 
+            
+                if rolled==0 and side_1!="Walk": 
+                    import random
+                    r=random.randrange(len(dice))
+
+                elif rolled==1 and side_2!="Walk":
+                    import random
+                    r=random.randrange(len(dice))
+            
+                elif rolled==2 and side_3!="Walk":
+                    import random
+                    r=random.randrange(len(dice))
+                
+                else:
+                    if rolled==0 and side_1=="Walk": 
+                        r=roll_1  
+                    elif rolled==1 and side_2=="Walk":
+                        r=roll_2 
+                    elif rolled==2 and side_3=="Walk":
+                        r=roll_3 
+
+                rolled=rolled+1 
+    
+                while dice[r]==1 or dice[r]==2: 
+                    r=random.randrange(len(dice))
+            
+                if dice[r]!=1 and dice[r]!=2: 
+
+                    import random 
+                
+                    if r<6:
+                        die="green die"
+                        column="Green Die:"
+                        green_die=random.randrange(6)+1
+                        if green_die==1 or green_die==2 or green_die==3: 
+                            brains=brains+1
+                            result="Brain"
+                        elif green_die==4 or green_die==5:
+                            footprints=footprints+1
+                            result="Walk"
+                        else:
+                            shotguns=shotguns+1
+                            result="Shotgun"
+
+                    elif r>=6 and r<10:
+                        die="yellow die"
+                        column="Yellow Die:"
+                        yellow_die=random.randrange(6)+1
+                        if yellow_die==1 or yellow_die==2:
+                            brains=brains+1
+                            result="Brain"
+                        elif yellow_die==3 or yellow_die==4:
+                            footprints=footprints+1
+                            result="Walk"
+                        else:
+                            shotguns=shotguns+1
+                            result="Shotgun"
+
+                    else:
+                        die="red die"
+                        column="Red Die:"
+                        red_die=random.randrange(6)+1
+                        if red_die>=1 or red_die<=3:
+                            shotguns=shotguns+1
+                            result="Shotgun"
+                        elif red_die==4 or red_die==5:
+                            footprints=footprints+1
+                            result="Walk"
+                        else:
+                            brains=brains+1
+                            result="Brain"
+
+                    if rolled==1:
+                        if result=="Walk":
+                            roll_1=r 
+                        elif result=="Shotgun":
+                            leftover=leftover+1
+                            dice[r]=2
+                        elif result!="Walk" and result!="Shotgun":
+                            leftover=leftover+1 
+                            dice[r]=1 
+                        die1=die 
+                        column1=column
+                        side_1=result
+
+                    elif rolled==2:
+                        if result=="Walk":
+                            roll_2=r
+                        elif result=="Shotgun":
+                            leftover=leftover+1
+                            dice[r]=2
+                        elif result!="Walk" and result!="Shotgun":
+                            leftover=leftover+1
+                            dice[r]=1    
+                        die2=die
+                        column2=column
+                        side_2=result
+
+                    elif rolled==3:
+                        if result=="Walk":
+                            roll_3=r
+                        elif result=="Shotgun":
+                            leftover=leftover+1
+                            dice[r]=2
+                        elif result!="Walk" and result!="Shotgun":
+                            leftover=leftover+1
+                            dice[r]=1
+                        die3=die
+                        column3=column
+                        side_3=result
+
+                        import time
+                        
+                        print "ZOMBIE", num, ":", "you have been presented with a", die1 + ", " + die2 , "and", die3 + "."
+                        
+                        print "\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n                              DICE RESULTS\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n", column1, side_1, "\n" ,column2, side_2, "\n",column3,side_3, "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", brains, "\nSHOTGUNS:", shotguns, "\nFOOTPRINTS:", footprints, "\n~~~~~~~~~~~~~~~~~~~~~~"
+
+            if shotguns>=3: 
+                brains=0
+                
+                print "\nTURN OVER---YOU HAVE BEEN SHOT 3 OR MORE TIMES---"
+            
+            else:
+                
+                Continue=raw_input("\nWould you like to roll again (y/n)?") 
+                if Continue=="y":
+                    print "\nROLLING...\n"
+
+        if num==1:
+            zombie_1=brains
+            
+            print "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", brains, "\n~~~~~~~~~~~~~~~~~~~~~~\n"
+
+        else:
+            zombie_2=brains
+            
+            print "\n~~~~~~~~~~~~~~~~~~~~~~\nZOMBIE", num, "TALLY\n~~~~~~~~~~~~~~~~~~~~~~\nBRAINS:", brains, "\n~~~~~~~~~~~~~~~~~~~~~~\n"    
+
+
+    if zombie_1>zombie_2:
+            
+            print "ZOMBIE 1 HAS ATE MORE BRAINS!"
+            print" "
+            print "CONGRADULATIONS ZOMBIE 1, YOU ARE THE BEST ZOMBIE ALIVE"
+    elif zombie_2>zombie_1:
+            
+            print "ZOMBIE 2 HAS ATE MORE BRAINS!"
+            print " "
+            print "CONGRADULATIONS ZOMBIE 2, YOU ARE THE BEST ZOMBIE ALIVE"
